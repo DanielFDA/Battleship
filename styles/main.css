@@ -1,3 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: turquoise;
+  height: 100vh;
+  margin: 0;
+  background-color: deepskyblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 90vh;
+  width: 70vw;
+}
+
+.sections {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grids {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#oceanGrid {
+  height: 45vh;
+  width: 700px;
+}
+
+#trackingGrid {
+  height: 40vh;
+  width: 600px;
+}
+
+.sides {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: absolute;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.northSides {
+  width: 250px;
+  height: 40vh;
+}
+
+.southSides {
+  width: 200px;
+  height: 45vh;
+  position: absolute;  
+}
+
+.westSides {
+  left: 0;
+  position: absolute;  
+}
+
+.eastSides {
+  position: absolute;
+  right: 0;
+}
+
+.gridsCells {
+  height: 9.090909090909091%;
+  width: 9.090909090909091%;
+  border: 0.1px solid rgb(255, 255, 255);
+  flex-grow: 1;
 }
