@@ -2,45 +2,33 @@
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
+body {  
   margin: 0;
-  background-color: deepskyblue;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  background-color: #F3F3F3;
+  overflow-x: hidden;
 }
 
 h1 {
+  display: flex;
   margin: 0;
+  height: 15vh;
 }
 
-main {
+.container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  height: 90vh;
-  width: 70vw;
+  height: 70vh
 }
 
-.sections {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .grids {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  position: relative;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -52,42 +40,30 @@ main {
 #trackingGrid {
   height: 40vh;
   width: 600px;
-}
-
-.sides {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: absolute;
-  align-items: center;
-  border: 1px solid white;
-}
-
-.northSides {
-  width: 250px;
-  height: 40vh;
-}
-
-.southSides {
-  width: 200px;
-  height: 45vh;
-  position: absolute;  
-}
-
-.westSides {
-  left: 0;
-  position: absolute;  
-}
-
-.eastSides {
-  position: absolute;
-  right: 0;
+  margin-left: 2em;
 }
 
 .gridsCells {
-  height: 9.090909090909091%;
-  width: 9.090909090909091%;
+  height: 10%;
+  width: 10%;
   border: 0.1px solid rgb(255, 255, 255);
   flex-grow: 1;
+  font-size: 0.75rem;
+}
+
+.cellTaken {
+  background: red;
+}
+
+.cellTakenByAI {
+  
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#startBtn {
+  display: flex;
 }
