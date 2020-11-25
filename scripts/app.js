@@ -48,6 +48,8 @@ function init() {
     }
   ]
 
+  // let gameOver = false
+
   // ! Functions
 
 
@@ -113,11 +115,11 @@ function init() {
   trackingGridShipsGenerator(ships[4])
 
 
-  let patrolBoatCount = 2
-  let submarineCount = 3
-  let destroyerCount = 3
-  let battleshipCount = 4
-  let carrierCount = 5
+  let AIpatrolBoatCount = 2
+  let AIsubmarineCount = 3
+  let AIdestroyerCount = 3
+  let AIbattleshipCount = 4
+  let AIcarrierCount = 5
   let turnFor = 'player'
   let shotFired
 
@@ -127,9 +129,8 @@ function init() {
 
 
   function playersTurn() {
-    // if (gameEnds) return
-    // if (gameEnds) return
     turnFor = 'player'
+    // if (!gameEnds())
     if (turnFor === 'player') {
       trackingGridCells.forEach(cell => cell.addEventListener('click', function (e) {
         shotFired = cell.dataset.id
@@ -137,20 +138,21 @@ function init() {
         const cellUnderFire = trackingGrid.querySelector(query)
         if (!cellUnderFire.classList.contains('cellShot') && turnFor === 'player') {
           if (cellUnderFire.classList.contains('patrol-boat')) {
-            patrolBoatCount--
+            AIpatrolBoatCount--
           }
           if (cellUnderFire.classList.contains('submarine')) {
-            submarineCount--
+            AIsubmarineCount--
           }
           if (cellUnderFire.classList.contains('destroyer')) {
-            destroyerCount--
-          } 
-          if (cellUnderFire.classList.contains('battleship')) {
-            battleshipCount--
-          } 
-          if (cellUnderFire.classList.contains('carrier')) {
-            carrierCount--
+            AIdestroyerCount--
           }
+          if (cellUnderFire.classList.contains('battleship')) {
+            AIbattleshipCount--
+          }
+          if (cellUnderFire.classList.contains('carrier')) {
+            AIcarrierCount--
+          }
+          winConditions()
         }
         if (cellUnderFire.classList.contains('cellTakenByAI')) {
           cellUnderFire.classList.add('hit')
@@ -161,17 +163,86 @@ function init() {
           alert('You alredy fired in this cell. Choose another')
         }
         cellUnderFire.classList.add('cellShot')
-        console.log(`patrol has ${patrolBoatCount} lives left`)
-        console.log(`submarine has ${submarineCount} lives left`)
-        console.log(`destroyer has ${destroyerCount} lives left`)
-        console.log(`battleship has ${battleshipCount} lives left`)
-        console.log(`carrier has ${carrierCount} lives left`)
+        console.log(`patrol has ${AIpatrolBoatCount} lives left`)
+        console.log(`submarine has ${AIsubmarineCount} lives left`)
+        console.log(`destroyer has ${AIdestroyerCount} lives left`)
+        console.log(`battleship has ${AIbattleshipCount} lives left`)
+        console.log(`carrier has ${AIcarrierCount} lives left`)
+        // turnFor = 'ai'
       }))
     }
   }
   playersTurn()
-  // function gameEnd() {
-  //   console.log('game ends')
+
+  // function aiTurn(cell) {
+  //   turnFor = 'ai'
+  //   // if (!gameEnds())
+  //     if (turnFor === 'ai') {
+  //       cell = Math.floor(Math.random() * oceanGridCells.length)
+  //     }
+  // }
+
+  // let patrolBoatCount = 2
+  // let submarineCount = 3
+  // let destroyerCount = 3
+  // let battleshipCount = 4
+  // let carrierCount = 5
+
+  function winConditions() {
+    if (AIpatrolBoatCount === 0) {
+      // eslint-disable-next-line quotes
+      alert(`You have sunk AI's Patrol Boat`)
+    }
+    if (AIsubmarineCount === 0) {
+      // eslint-disable-next-line quotes
+      alert(`You have sunk AI's Submarine`)
+    }
+    if (AIdestroyerCount === 0) {
+      // eslint-disable-next-line quotes
+      alert(`You have sunk AI's Destroyer`)
+    }
+    if (AIbattleshipCount === 0) {
+      // eslint-disable-next-line quotes
+      alert(`You have sunk AI's Battleship`)
+    }
+    if (AIcarrierCount === 0) {
+      // eslint-disable-next-line quotes
+      alert(`You have sunk AI's Carrier`)
+    }
+    // if (patrolBoatCount === 0) {
+    //   // eslint-disable-next-line quotes
+    //   alert(`Your patrol boat has been sunk`)
+    // }
+    // if (submarineCount === 0) {
+    //   // eslint-disable-next-line quotes
+    //   alert(`Your submarine has been sunk`)
+    // }
+    // if (destroyerCount === 0) {
+    //   // eslint-disable-next-line quotes
+    //   alert(`Your destroyer has been sunk`)
+    // }
+    // if (battleshipCount === 0) {
+    //   // eslint-disable-next-line quotes
+    //   alert(`Your battleship has been sunk`)
+    // }
+    // if (carrierCount === 0) {
+    //   // eslint-disable-next-line quotes
+    //   alert(`Your carrier has been sunk`)
+    // }
+    if (AIpatrolBoatCount === 0 && AIsubmarineCount === 0 && AIdestroyerCount === 0 && AIbattleshipCount === 0 && AIcarrierCount === 0) {
+      alert('Player WINS')
+      // gameEnds()
+    }
+    // if (patrolBoatCount === 0 && submarineCount === 0 && destroyerCount === 0 && battleshipCount === 0 && carrierCount === 0) {
+    //   alert('AI WINS')
+      // gameEnds()
+    // }
+  }
+
+  // function gameEnds() {
+  //   gameOver = true
+  //   removeEventListener('click', playersTurn)
+  // }
   // }
 }
 

@@ -45,7 +45,7 @@ h1 {
 
 .gridsCells {
   height: 10%;
-  background-color: #F3F3F3;
+  background-color: deepskyblue;
   width: 10%;
   border: 0.1px solid rgb(255, 255, 255);
   flex-grow: 1;
@@ -53,17 +53,13 @@ h1 {
 }
 
 /* adding hover behaviour to each cell */
-.gridsCells:hover {
+#trackingGrid > div:hover {
   opacity: 0.5;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .cellTaken {
-  background: red;
-}
-
-.cellTakenByAI {
-  
+  background: rgb(25, 66, 25);
 }
 
 .btnContainer {
@@ -73,4 +69,12 @@ h1 {
 
 #startBtn {
   display: flex;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: grey;
 }
