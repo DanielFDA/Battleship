@@ -48,15 +48,12 @@ function init() {
     }
   ]
 
-  let shotFired 
-  let cellUnderFire
-
   // ! Functions
 
 
-  
 
-  function createGridsCells(grid, cells) {                  
+
+  function createGridsCells(grid, cells) {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.dataset.id = i
@@ -91,16 +88,16 @@ function init() {
   oceanGridShipsGenerator(ships[2])
   oceanGridShipsGenerator(ships[3])
   oceanGridShipsGenerator(ships[4])
-  
+
   function trackingGridShipsGenerator(ship) {
     let randomDirection = Math.floor(Math.random() * ship.directions.length)
     let current = ship.directions[randomDirection]
-    let direction 
+    let direction
     if (randomDirection === 0) direction = 1
     if (randomDirection === 1) direction = 10
     let randomStart = Math.abs(Math.floor(Math.random() * trackingGridCells.length - (ship.directions[0].length * direction)))
 
-    const isTaken = current.some(index => trackingGridCells[randomStart + index].classList.contains('cellTaken'))
+    const isTaken = current.some(index => trackingGridCells[randomStart + index].classList.contains('cellTakenByAI'))
     const isAtRightEdge = current.some(index => (randomStart + index) % width > width - 1)
     const isAtLeftEdge = current.some(index => (randomStart + index) % width === 0)
 
@@ -116,52 +113,66 @@ function init() {
   trackingGridShipsGenerator(ships[4])
 
 
-  trackingGridCells.forEach(cell => cell.addEventListener('click', function(e) {
-    shotFired = cell.dataset.id // encontramos el dataset id de la cell que hacemos click
-    // revealSquare(square.classList)
-    const query = `[data-id="${shotFired}"]`    // transformamos el dataset id en un string para poder encontrarlo con queryselector
-    cellUnderFire = trackingGrid.querySelector(query)  // asigna el elemnto q fue clickeado usando un queryselect para el dataset id dentro del tracking grid
-    cellUnderFire.classList.add('cellShot')
-    if (cellUnderFire.classList.contains('cellShot')) {
-      console.log('ns')
-    }
-  }))
+  let patrolBoatCount = 2
+  let submarineCount = 3
+  let destroyerCount = 3
+  let battleshipCount = 4
+  let carrierCount = 5
+  let turnFor = 'player'
+  let shotFired
+
   // const query = `[data-id=${shotFired}]`
   // const resp = trackingGrid.querySelector(query)
   // console.log(resp)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  function playersTurn() {
+    // if (gameEnds) return
+    // if (gameEnds) return
+    turnFor = 'player'
+    if (turnFor === 'player') {
+      trackingGridCells.forEach(cell => cell.addEventListener('click', function (e) {
+        shotFired = cell.dataset.id
+        const query = `[data-id="${shotFired}"]`
+        const cellUnderFire = trackingGrid.querySelector(query)
+        if (!cellUnderFire.classList.contains('cellShot') && turnFor === 'player') {
+          if (cellUnderFire.classList.contains('patrol-boat')) {
+            patrolBoatCount--
+          }
+          if (cellUnderFire.classList.contains('submarine')) {
+            submarineCount--
+          }
+          if (cellUnderFire.classList.contains('destroyer')) {
+            destroyerCount--
+          } 
+          if (cellUnderFire.classList.contains('battleship')) {
+            battleshipCount--
+          } 
+          if (cellUnderFire.classList.contains('carrier')) {
+            carrierCount--
+          }
+        }
+        if (cellUnderFire.classList.contains('cellTakenByAI')) {
+          cellUnderFire.classList.add('hit')
+        } else {
+          cellUnderFire.classList.add('miss')
+        }
+        if (cellUnderFire.classList.contains('cellShot')) {
+          alert('You alredy fired in this cell. Choose another')
+        }
+        cellUnderFire.classList.add('cellShot')
+        console.log(`patrol has ${patrolBoatCount} lives left`)
+        console.log(`submarine has ${submarineCount} lives left`)
+        console.log(`destroyer has ${destroyerCount} lives left`)
+        console.log(`battleship has ${battleshipCount} lives left`)
+        console.log(`carrier has ${carrierCount} lives left`)
+      }))
+    }
+  }
+  playersTurn()
+  // function gameEnd() {
+  //   console.log('game ends')
+  // }
 }
 
 window.addEventListener('DOMContentLoaded', init)
