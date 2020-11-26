@@ -114,72 +114,87 @@ function init() {
   trackingGridShipsGenerator(ships[3])
   trackingGridShipsGenerator(ships[4])
 
-
+  function start() {
+    startBtn.addEventListener('click', () => {
+      playGame()
+    })
+  }
+  start()
   let AIpatrolBoatCount = 2
   let AIsubmarineCount = 3
   let AIdestroyerCount = 3
   let AIbattleshipCount = 4
   let AIcarrierCount = 5
-  let turnFor = 'player'
+  let playerTurn = true
   let shotFired
-
-
-  function playersTurn() {
-    if (!gameEnds())
-      if (turnFor === 'player') {
-        trackingGridCells.forEach(cell => cell.addEventListener('click', function (e) {
-          shotFired = cell.dataset.id
-          const query = `[data-id="${shotFired}"]`
-          const cellUnderFire = trackingGrid.querySelector(query)
-          if (!cellUnderFire.classList.contains('cellShot') && turnFor === 'player') {
-            if (cellUnderFire.classList.contains('patrol-boat')) {
-              AIpatrolBoatCount--
-            }
-            if (cellUnderFire.classList.contains('submarine')) {
-              AIsubmarineCount--
-            }
-            if (cellUnderFire.classList.contains('destroyer')) {
-              AIdestroyerCount--
-            }
-            if (cellUnderFire.classList.contains('battleship')) {
-              AIbattleshipCount--
-            }
-            if (cellUnderFire.classList.contains('carrier')) {
-              AIcarrierCount--
-            }
-            winConditions()
-          }
-          if (cellUnderFire.classList.contains('cellTakenByAI')) {
-            cellUnderFire.classList.add('hit')
-          } else {
-            cellUnderFire.classList.add('miss')
-          }
-          if (cellUnderFire.classList.contains('cellShot')) {
-            alert('You alredy fired in this cell. Choose another')
-          }
-          cellUnderFire.classList.add('cellShot')
-          console.log(`patrol has ${AIpatrolBoatCount} lives left`)
-          console.log(`submarine has ${AIsubmarineCount} lives left`)
-          console.log(`destroyer has ${AIdestroyerCount} lives left`)
-          console.log(`battleship has ${AIbattleshipCount} lives left`)
-          console.log(`carrier has ${AIcarrierCount} lives left`)
-        }))
-        turnFor = 'ai'
-        aiTurn()
-      }
-  }
-  playersTurn()
-
   let patrolBoatCount = 2
   let submarineCount = 3
   let destroyerCount = 3
   let battleshipCount = 4
   let carrierCount = 5
 
+
+  function playGame() {
+    if (gameOver === true) return
+    if (playerTurn === true) {
+      trackingGridCells.forEach(cell => cell.addEventListener('click', function (e) {
+        shotFired = cell.dataset.id
+        playersTurn(cell.classList)
+      }))
+    }
+    if (playerTurn === false) {
+      setTimeout(aiTurn, 500)
+    }
+  }
+
+
+
+
+  function playersTurn(classList) {
+    const cellUnderFire = oceanGridCells.querySelector(`div[data-id='${shotFired}']`)
+    const objeto = Object.values(classList)
+    if (!cellUnderFire.classList.contains('cellShot') && playerTurn === true && !gameEnds()) {
+      if (cellUnderFire.includes('cellShot')) {
+        alert('You alredy fired in this cell. Choose another')
+        return
+      }
+      if (objeto.includes('patrol-boat')) {
+        AIpatrolBoatCount--
+      }
+      if (objeto.includes('submarine')) {
+        AIsubmarineCount--
+      }
+      if (objeto.includes('destroyer')) {
+        AIdestroyerCount--
+      }
+      if (objeto.includes('battleship')) {
+        AIbattleshipCount--
+      }
+      if (objeto.includes('carrier')) {
+        AIcarrierCount--
+      }
+    }
+    if (objeto.includes('cellTakenByAI')) {
+      cellUnderFire.classList.add('hit')
+    } else {
+      cellUnderFire.classList.add('miss')
+    }
+    cellUnderFire.classList.add('cellShot')
+    console.log(`patrol has ${AIpatrolBoatCount} lives left`)
+    console.log(`submarine has ${AIsubmarineCount} lives left`)
+    console.log(`destroyer has ${AIdestroyerCount} lives left`)
+    console.log(`battleship has ${AIbattleshipCount} lives left`)
+    console.log(`carrier has ${AIcarrierCount} lives left`)
+    winConditions()
+    playerTurn = false
+    playGame()
+  }
+
+
   function aiTurn(cell) {
     if (!gameEnds())
-      if (turnFor === 'ai') cell = Math.floor(Math.random() * oceanGridCells.length)
-    if (!cell.classList.contains('hit')) {
+      if (playerTurn === false) cell = Math.floor(Math.random() * oceanGridCells.length)
+    if (!oceanGridCells[cell].classList.contains('hit')) {
       const shotFired = oceanGridCells[cell].classList.contains('cellTaken')
       oceanGridCells[cell].classList.add(shotFired ? 'hit' : 'miss')
       if (oceanGridCells[cell].classList.contains('patrol-boat')) {
@@ -198,50 +213,42 @@ function init() {
         carrierCount--
       }
       winConditions()
+    } else {
+      playerTurn = true
+      playGame()
     }
-    turnFor = 'player'
   }
 
   function winConditions() {
     if (AIpatrolBoatCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`You have sunk AI's Patrol Boat`)
+      alert('You have sunk AI\'s Patrol Boat')
     }
     if (AIsubmarineCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`You have sunk AI's Submarine`)
+      alert('You have sunk AI\'s Submarine')
     }
     if (AIdestroyerCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`You have sunk AI's Destroyer`)
+      alert('You have sunk AI\'s Destroyer')
     }
     if (AIbattleshipCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`You have sunk AI's Battleship`)
+      alert('You have sunk AI\'s Battleship')
     }
     if (AIcarrierCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`You have sunk AI's Carrier`)
+      alert('You have sunk AI\'s Carrier')
     }
     if (patrolBoatCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`Your patrol boat has been sunk`)
+      alert('Your patrol boat has been sunk')
     }
     if (submarineCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`Your submarine has been sunk`)
+      alert('Your submarine has been sunk')
     }
     if (destroyerCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`Your destroyer has been sunk`)
+      alert('Your destroyer has been sunk')
     }
     if (battleshipCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`Your battleship has been sunk`)
+      alert('Your battleship has been sunk')
     }
     if (carrierCount === 0) {
-      // eslint-disable-next-line quotes
-      alert(`Your carrier has been sunk`)
+      alert('Your carrier has been sunk')
     }
     if (AIpatrolBoatCount === 0 && AIsubmarineCount === 0 && AIdestroyerCount === 0 && AIbattleshipCount === 0 && AIcarrierCount === 0) {
       alert('Player WINS')
