@@ -1,13 +1,14 @@
 
 function init() {
-  console.log('js is up and running')
   // ! elements
 
   const width = 10
   const trackingGrid = document.querySelector('#trackingGrid')
   const oceanGrid = document.querySelector('#oceanGrid')
   const startBtn = document.querySelector('#startBtn')
+  // const resetBtn = document.querySelector('#resetBtn')
   const cellCount = width * width
+  const gameInfo = document.querySelector('#gameInfo')
   const oceanGridCells = []
   const trackingGridCells = []
   const ships = [
@@ -50,16 +51,13 @@ function init() {
 
   let gameOver = false
 
+
   // ! Functions
-
-
-
 
   function createGridsCells(grid, cells) {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.dataset.id = i
-      cell.textContent = i
       grid.appendChild(cell).classList.add('gridsCells')
       cells.push(cell)
     }
@@ -117,16 +115,13 @@ function init() {
   function start() {
     startBtn.addEventListener('click', () => {
       playGame()
+      startBtn.disabled = true
     })
   }
   start()
-  let AIpatrolBoatCount = 2
-  let AIsubmarineCount = 3
-  let AIdestroyerCount = 3
-  let AIbattleshipCount = 4
-  let AIcarrierCount = 5
-  let playerTurn = true
-  let shotFired
+  
+  let turn = true
+  let cellId
   let patrolBoatCount = 2
   let submarineCount = 3
   let destroyerCount = 3
@@ -135,127 +130,112 @@ function init() {
 
 
   function playGame() {
-    if (gameOver === true) return
-    if (playerTurn === true) {
-      trackingGridCells.forEach(cell => cell.addEventListener('click', function (e) {
-        shotFired = cell.dataset.id
+    if (gameOver) return
+    if (turn === true) {
+      trackingGridCells.forEach(cell => cell.addEventListener('click', function(e) {
+        cellId = cell.dataset.id
         playersTurn(cell.classList)
       }))
     }
-    if (playerTurn === false) {
-      setTimeout(aiTurn, 500)
+    if (turn === false) {
+      setTimeout(aiTurn, 100)
     }
   }
 
-
-
+  let AIpatrolBoatCount = 2
+  let AIsubmarineCount = 3
+  let AIdestroyerCount = 3
+  let AIbattleshipCount = 4
+  let AIcarrierCount = 5
 
   function playersTurn(classList) {
-    const cellUnderFire = oceanGridCells.querySelector(`div[data-id='${shotFired}']`)
-    const objeto = Object.values(classList)
-    if (!cellUnderFire.classList.contains('cellShot') && playerTurn === true && !gameEnds()) {
-      if (cellUnderFire.includes('cellShot')) {
-        alert('You alredy fired in this cell. Choose another')
-        return
-      }
-      if (objeto.includes('patrol-boat')) {
-        AIpatrolBoatCount--
-      }
-      if (objeto.includes('submarine')) {
-        AIsubmarineCount--
-      }
-      if (objeto.includes('destroyer')) {
-        AIdestroyerCount--
-      }
-      if (objeto.includes('battleship')) {
-        AIbattleshipCount--
-      }
-      if (objeto.includes('carrier')) {
-        AIcarrierCount--
-      }
+    const cellUnderFire = trackingGrid.querySelector(`div[data-id='${cellId}']`)
+    const obj = Object.values(classList)
+    if (!cellUnderFire.classList.contains('hit') && turn === true && !gameOver) {
+      if (obj.includes('patrol-boat')) AIpatrolBoatCount--
+      if (obj.includes('submarine')) AIsubmarineCount--
+      if (obj.includes('destroyer')) AIdestroyerCount--
+      if (obj.includes('battleship')) AIbattleshipCount--
+      if (obj.includes('carrier')) AIcarrierCount--
+      console.log(`patrol has ${AIpatrolBoatCount} lives left`)
+      console.log(`submarine has ${AIsubmarineCount} lives left`)
+      console.log(`destroyer has ${AIdestroyerCount} lives left`)
+      console.log(`battleship has ${AIbattleshipCount} lives left`)
+      console.log(`carrier has ${AIcarrierCount} lives left`)
     }
-    if (objeto.includes('cellTakenByAI')) {
+    if (obj.includes('cellTakenByAI')) {
       cellUnderFire.classList.add('hit')
     } else {
       cellUnderFire.classList.add('miss')
     }
-    cellUnderFire.classList.add('cellShot')
-    console.log(`patrol has ${AIpatrolBoatCount} lives left`)
-    console.log(`submarine has ${AIsubmarineCount} lives left`)
-    console.log(`destroyer has ${AIdestroyerCount} lives left`)
-    console.log(`battleship has ${AIbattleshipCount} lives left`)
-    console.log(`carrier has ${AIcarrierCount} lives left`)
+    if (obj.includes('hit')) {
+      alert('You alredy shot this cell. Please try another')
+      return
+    }
+    if (obj.includes('miss')) {
+      alert('You alredy shot this cell. Please try another')
+      return
+    }
     winConditions()
-    playerTurn = false
+    turn = false
     playGame()
   }
 
 
   function aiTurn(cell) {
-    if (!gameEnds())
-      if (playerTurn === false) cell = Math.floor(Math.random() * oceanGridCells.length)
+    cell = Math.floor(Math.random() * oceanGridCells.length)
     if (!oceanGridCells[cell].classList.contains('hit')) {
-      const shotFired = oceanGridCells[cell].classList.contains('cellTaken')
-      oceanGridCells[cell].classList.add(shotFired ? 'hit' : 'miss')
-      if (oceanGridCells[cell].classList.contains('patrol-boat')) {
-        patrolBoatCount--
-      }
-      if (oceanGridCells[cell].classList.contains('submarine')) {
-        submarineCount--
-      }
-      if (oceanGridCells[cell].classList.contains('destroyer')) {
-        destroyerCount--
-      }
-      if (oceanGridCells[cell].classList.contains('battleship')) {
-        battleshipCount--
-      }
-      if (oceanGridCells[cell].classList.contains('carrier')) {
-        carrierCount--
-      }
+      const cellHit = oceanGridCells[cell].classList.contains('cellTaken')
+      oceanGridCells[cell].classList.add(cellHit ? 'hit' : 'miss')
+      if (oceanGridCells[cell].classList.contains('patrol-boat')) patrolBoatCount--
+      if (oceanGridCells[cell].classList.contains('submarine')) submarineCount--
+      if (oceanGridCells[cell].classList.contains('destroyer')) destroyerCount--
+      if (oceanGridCells[cell].classList.contains('battleship')) battleshipCount--
+      if (oceanGridCells[cell].classList.contains('carrier')) carrierCount--
       winConditions()
-    } else {
-      playerTurn = true
-      playGame()
-    }
+    } else aiTurn()
+    turn = true
   }
+
 
   function winConditions() {
     if (AIpatrolBoatCount === 0) {
-      alert('You have sunk AI\'s Patrol Boat')
+      gameInfo.innerHTML = 'You have sunk AI\'s Patrol Boat'
     }
     if (AIsubmarineCount === 0) {
-      alert('You have sunk AI\'s Submarine')
+      gameInfo.innerHTML = 'You have sunk AI\'s Submarine'
     }
     if (AIdestroyerCount === 0) {
-      alert('You have sunk AI\'s Destroyer')
+      gameInfo.innerHTML = 'You have sunk AI\'s Destroyer'
     }
     if (AIbattleshipCount === 0) {
-      alert('You have sunk AI\'s Battleship')
+      gameInfo.innerHTML = 'You have sunk AI\'s Battleship'
     }
     if (AIcarrierCount === 0) {
-      alert('You have sunk AI\'s Carrier')
+      gameInfo.innerHTML = 'You have sunk AI\'s Carrier'
     }
     if (patrolBoatCount === 0) {
-      alert('Your patrol boat has been sunk')
+      gameInfo.innerHTML = 'Your patrol boat has been sunk'
     }
     if (submarineCount === 0) {
-      alert('Your submarine has been sunk')
+      gameInfo.innerHTML = 'Your submarine has been sunk'
     }
     if (destroyerCount === 0) {
-      alert('Your destroyer has been sunk')
+      gameInfo.innerHTML = 'Your destroyer has been sunk'
     }
     if (battleshipCount === 0) {
-      alert('Your battleship has been sunk')
+      gameInfo.innerHTML = 'Your battleship has been sunk'
     }
     if (carrierCount === 0) {
-      alert('Your carrier has been sunk')
+      gameInfo.innerHTML = 'Your carrier has been sunk'
     }
     if (AIpatrolBoatCount === 0 && AIsubmarineCount === 0 && AIdestroyerCount === 0 && AIbattleshipCount === 0 && AIcarrierCount === 0) {
+      gameInfo.innerHTML = 'PLAYER WINS'
       alert('Player WINS')
-
       gameEnds()
     }
     if (patrolBoatCount === 0 && submarineCount === 0 && destroyerCount === 0 && battleshipCount === 0 && carrierCount === 0) {
+      gameInfo.innerHTML = 'AI WINS'
       alert('AI WINS')
       gameEnds()
     }
@@ -263,8 +243,9 @@ function init() {
 
   function gameEnds() {
     gameOver = true
-    removeEventListener('click', playersTurn)
+    removeEventListener('click', playGame)
   }
+
 }
 
 window.addEventListener('DOMContentLoaded', init)
