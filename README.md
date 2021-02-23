@@ -59,4 +59,4 @@ Since this was my first time developing a game, I had some trouble deciding wher
 
 This methodologie helped me understand how to split big problems into smaller and manageable pieces that I can begin to work on in order to achieve a certain goal. At the end, despite the fact that I couldn't finish what I set myself to do, I was satisfied with the outcome and the fact that I enjoyed developing this game while learning a lot
 
-[Index](##index-)
+[Index](./README.md##index)
