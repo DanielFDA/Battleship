@@ -47,9 +47,6 @@ No ship is ever auto-generated on the first column
 ### Wins and Challenges
 After three weeks of coding I went into my first project with quite a few doubts but very anxious to see what I would be able to develop within a week. So I kept the scope pretty simple to begin with taking into account that this was the first time that I would work on a project (plus being alone).
 
-Making the function to control the turns with the AI actions happening right after the player's input was the most difficult
-
-
 ### Some Learnings
 
 Since this was my first time developing a game, I had some trouble deciding where I should start and felt a little overwhelmed at first but thanks to the coaching and instructions given by the team at GA I started by picturing how I wanted my game to work and began making functions for the very basic things I needed like creating the grid for both the player and AI and placing ships inside randomly for both, then moving onto the more complex functions that would take care of the gameplay and both the player's and AI's inputs.
