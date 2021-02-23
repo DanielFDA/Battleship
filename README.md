@@ -28,9 +28,6 @@ then, to launch the game go the downloaded folder and double-click `index.html`
 For this game there is no installation or requirements needed.
 
 ## Technologies Used
-* VS Code
-* Git
-* GitHub
 * CSS
 * JavaScript (ES6)
 * HTML5
