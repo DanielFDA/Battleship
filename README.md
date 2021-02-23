@@ -1,13 +1,13 @@
 # sei project 1 - Battleship
 
 ## Index
-* [Overview](./README.md#overview)
-* [Setup](./README.md#setup)
-* [Technologies Used](./README.md#technologies-used)
-* [Notable Bugs](./README.md#notable-bugs)
-* [Conclusion](./README.md#conclusion)
-	* [Wins and Challenges](./README.md#wins-and-challenges)
-	* [Some Learnings](./README.md#some-learnings)
+* [Overview](#overview)
+* [Setup](#setup)
+* [Technologies Used](#technologies-used)
+* [Notable Bugs](#notable-bugs)
+* [Conclusion](#conclusion)
+	* [Wins and Challenges](#wins-and-challenges)
+	* [Some Learnings](#some-learnings)
 
 
 ## Overview 
@@ -53,4 +53,4 @@ Since this was my first time developing a game, I had some trouble deciding wher
 
 This methodologie helped me understand how to split big problems into smaller and manageable pieces that I can begin to work on in order to achieve a certain goal. At the end, despite the fact that I couldn't finish what I set myself to do, I was satisfied with the outcome and the fact that I enjoyed developing this game while learning a lot
 
-[Index](./README.md##index)
+[Index](#index)
