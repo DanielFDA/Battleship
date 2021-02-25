@@ -37,11 +37,12 @@ For this game there is no installation or requirements needed.
 
 ## Approach
 
-The first thing I did was write down all the core/main functionality that I thought was basic for the game to function, for this I had to go through the [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) wikipedia to make sure I wasn't missing anything, as well as deciding the amount of ships that I wanted for the game since they vary depending on the version of the game that you play.
+The first thing I did was write down all the core/main functionality that I thought was basic for the game to function, for this I had to go through the [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) wikipedia to make sure I wasn't missing anything, as well as deciding the amount of ships that I wanted for the game since they vary depending on the version of the game you choose to play.
 
 <p align="center" width="100%">
-    <img style="border-radius:5px" width="95%" src="assets/image1.png"> 
+    <img width="95%" src="assets/image1.png"> 
 </p>
+
 ## Notable Bugs
 
 These were the most important bugs I found while testing the game
