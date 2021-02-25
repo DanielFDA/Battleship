@@ -138,7 +138,7 @@ function init() {
       }))
     }
     if (turn === false) {
-      setTimeout(aiTurn, 100)
+      setTimeout(aiTurn, 1000)
     }
   }
 
@@ -157,11 +157,11 @@ function init() {
       if (obj.includes('destroyer')) AIdestroyerCount--
       if (obj.includes('battleship')) AIbattleshipCount--
       if (obj.includes('carrier')) AIcarrierCount--
-      console.log(`patrol has ${AIpatrolBoatCount} lives left`)
-      console.log(`submarine has ${AIsubmarineCount} lives left`)
-      console.log(`destroyer has ${AIdestroyerCount} lives left`)
-      console.log(`battleship has ${AIbattleshipCount} lives left`)
-      console.log(`carrier has ${AIcarrierCount} lives left`)
+      // console.log(`patrol has ${AIpatrolBoatCount} lives left`)
+      // console.log(`submarine has ${AIsubmarineCount} lives left`)
+      // console.log(`destroyer has ${AIdestroyerCount} lives left`)
+      // console.log(`battleship has ${AIbattleshipCount} lives left`)
+      // console.log(`carrier has ${AIcarrierCount} lives left`)
     }
     if (obj.includes('cellTakenByAI')) {
       cellUnderFire.classList.add('hit')
