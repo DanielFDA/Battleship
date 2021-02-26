@@ -1,5 +1,6 @@
 # sei project 1 - Battleship
 
+You can check out the game [here](https://danielfda.github.io/sei-project-1/)
 ## Index
 * [Overview](#overview)
 * [Setup](#setup)
@@ -15,11 +16,11 @@
 
 ## Overview 
 
-For my first project in General Assembly's Software Engineering course our task was to develop a game within a week using HTML, CSS and Javascript, we were given a few options of which I chose the Battleship game.
+For my first project in General Assembly's Software Engineering course, our task was to develop a game within a week using HTML, CSS and Javascript, we were given a few options of which I chose the Battleship game.
 
 Battleship is a strategy-guessing game made for two players. Both players have a grid with their fleets made of 4 or 5 ships that are concealed to each other. The objective of the game is to destroy each others fleet for which the players alternate turns calling shots at the other player's grid.
 
-Also wanted to add that I will not be editing the code mainly because right now the purpose it serves its being the first project that I ever did and its showcasing the skills I had with 3 weeks into coding and changing that would serve no purpose for me.
+Wanted to note that I will not be editing the code due to this being the first project I ever did, and it showcases the skills I had with 3 weeks into coding and I want it as a reminder of where I started and how far I've gotten.
 
 ## Setup
 
@@ -39,19 +40,19 @@ For this game there is no installation or requirements needed.
 
 ## Approach
 
-One thing to note is that for this project there is a lot of comments made in Spanish (which is my native language), I understand that I should've used English and in future projects I do.
+One thing to note is that for this project there is a lot of comments made in Spanish (which is my native language), I understand that I should've used English and will do for future projects.
 
-In this section I will do my best to explain what the functions do and how the game works, if you choose you can skip the explanations and go straight to my thought process during the building of this game.
+In this section I will do my best to explain what the functions do and how the game works, you can also choose to skip the explanations and go straight to my thought process during the building of this game.
 
 ### Explanations
 
-The first thing I did was write down all the core/main functionality that I thought was basic for the game to function, for this I had to go through the [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) wikipedia to make sure I wasn't missing anything, as well as deciding the amount of ships that I wanted for the game since they vary depending on the version of the game you choose to play.
+The first thing I did was write down all the core/main functionality that I thought was basic for the game to function. For this I had to go through the [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) wikipedia to make sure I wasn't missing anything, as well as deciding the amount of ships that I wanted for the game since they vary depending on the version of the game you choose to play.
 
 <p align="center" width="100%">
     <img width="85%" src="assets/image1.png"> 
 </p>
 
-This is how the ships objects looked
+This is how the ships objects looked.
 
 ```js
 const ships = [
@@ -119,9 +120,17 @@ the directions property is the x and y axis that is later used in a function to 
   oceanGridShipsGenerator(ships[4])
 ```
 
+<p align="center" width="100%">
+    <img width="40%" src="assets/image3.png"> 
+</p>
+
 What this function does is randomly choose one of the directions array's and use it to randomly generate a ship in the ocean grid (player's grid) taking into account the length of the ship and that it cannot jump either horizontal or vertical edges in order to place them (so a ship wouldn't be able to being in the end of a row and start in the next one, the same way that it couldn't start in the bottom of the grid and finish in the top or viceversa).
 
 Then had to make another very similar function for the AI's grid.
+
+<p align="center" width="100%">
+    <img width="40%" src="assets/image4.png"> 
+</p>
 
 And afterwards then fun began having to make the player's turn function, will explain below
 ```js
@@ -162,7 +171,13 @@ And afterwards then fun began having to make the player's turn function, will ex
 
 This is when bugs started happening and also ways to cheat, for this function to work I had to give all the divs inside both grids a class depending on wether they had a ship in it or not, which can be easily checked on the dev tools > elements tab. 
 
-This function works in compliance with the playGame function that you'll see next, what it does is check the div that it's being clicked by the player to see wether or not there is a ship in it and depending on that it changes the class of the div that has been clicked to "hit" or "miss", then it checks if it alredy has a class of hit or miss to alert the player and give him the chance to fire again, if it doesnt and it's a hit it checks if it had a class of any of the ships and will reduce the lives counter of that ship by one. In the end it runs the winsConditions function to check if with that shot they sunk the last AI's ship and won the game, if not playGame function will run.
+This function works in compliance with the playGame function that you'll see next, what it does is check the div that it's being clicked by the player to see wether or not there is a ship in it and depending on that it changes the class of the div that has been clicked to "hit" or "miss". Then it checks if it already has a class of hit or miss to alert the player and give him the chance to fire again, if it doesn't and it's a hit, it checks if it had a class of any of the ships and will reduce the lives counter of that ship by one. 
+
+<p align="center" width="100%">
+    <img width="40%" src="assets/image6.png"> 
+</p>
+
+In the end it runs the winsConditions function to check if with that shot they sunk the last AI's ship and won the game, if not playGame function will run.
 
 ```js
   function playGame() {
@@ -178,7 +193,7 @@ This function works in compliance with the playGame function that you'll see nex
     }
   }
 ```
-This function first will check if the gameover variable is true and if it is it'll stop running, then will check wether its the player's turn or the AI's and will run the appropiate function. In the case of the player it adds an event lsitener to all the divs so the function knows what div is being clicked and evaluates based on that.
+This function first will check if the gameover variable is true and if it is it'll stop running, then will check wether its the player's turn or the AI's and will run the appropiate function. In the case of the player it adds an event listener to all the divs so the function knows what div is being clicked and evaluates based on that.
 
 For the AI it will just run the function after 1 second 
 ```js
@@ -249,6 +264,10 @@ Now for the last big function we have the winConditions
 
 Like the name says this function will check all the win conditions in order to stop the game if they're true, for this it sums up all the lives counter of the ships and if it equals 0 it runs the gameEnds function. It's also responsible for displaying the sunk messages on the screen, for this it will display it if the counter of the ship reaches 0.
 
+<p align="center" width="100%">
+    <img width="40%" src="assets/image5.png"> 
+</p>
+
 Now the gameEnds function and the last one of this project
 
 ```js
@@ -262,16 +281,18 @@ What this one does is set the gameOver variable to true and remove the event lis
 
 ### Thoughts
 
-For me this game was extremely challenging in terms of putting everything together, some bits of logic were aso very hard, the functions to create the ships (oceanGridShipsGenerator for example) were very tricky due to the special cases mentioned but were also quite fast because once that was cleared there was not really much holding back. 
+For me this game was extremely challenging in terms of putting everything together, some bits of logic were also very hard, the functions to create the ships (oceanGridShipsGenerator for example) were very tricky due to the special cases mentioned but were also quite fast because once that was cleared there was not really much holding back. 
 
-Now as for the player's and AI's turn it became a little different because the functions worked together and were handled by another one and connecting all the dots took much longer for me, which were the main reason why I ran out time and couldn't work on the logic for the AI, as well as having close to no time to worry about the styling of the game. Which was really sad for me because I was enjoying CSS quite a bit but nonetheless I think I learned tons on this project, having only 3 weeks coding it was really mind blowing to me to have come up with the solutions for some of these functions, I'm completely aware that there is a lot of repeated code and refactoring would be great but like I said in the [Overview](#overview) it servers no purpose to me to fix it now, so I will be leaving everything as is and in the near future will do it all over again to get everything the way I thought about it the first time and may even come up with some new stuff.
+In regards to the player's and AI's turn it became a little different because the functions worked together and were handled by another one and connecting all the dots took much longer for me, which were the main reason why I ran out time and couldn't work on the logic for the AI, as well as having close to no time to worry about the styling of the game. Which was really sad for me because I was enjoying CSS quite a bit but nonetheless I think I learned tons on this project.
+
+Having only 3 weeks coding it was really mind blowing to me to have come up with the solutions for some of these functions, I'm completely aware that there is a lot of repeated code and refactoring would be great but like I said in the [Overview](#overview) it servers no purpose to me to fix it now, so I will be leaving everything as is and in the near future will do it all over again to get everything the way I thought about it the first time and may even come up with some new stuff.
 ## Notable Bugs
 
 There are a handful of bugs in the game, most of which have no direct impact to the gameplay but some can be detrimental, theres 3 main ones:
 
 #### Sunk Ships Message
 
-The sunk ships message has a bug where after a certain amounts of lives it stops updating the messages, so the player has no easy way to track wether or not he sank a ship. 
+The sunk ships message has a bug where after a certain amounts of lives it stops updating the messages, so the player has no easy way to track whether or not he sank a ship. 
 #### Auto-generation of the Ships
 
 There is a problem with the generator function for the ships where no ship is ever auto-generated on the first column of the grids.
@@ -296,7 +317,7 @@ This methodologie helped me understand how to split big problems into smaller an
 </br>
 </br>
 <p align="center" width="100%">
-    <img width="100%" src="assets/image2.png"> 
+    <img width="85%" src="assets/image2.png"> 
 </p>
 
 [Index](#index)
