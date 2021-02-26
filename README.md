@@ -319,5 +319,5 @@ This methodologie helped me understand how to split big problems into smaller an
 <p align="center" width="100%">
     <img width="85%" src="assets/image2.png"> 
 </p>
-
-[Index](#index)
+<!-- 
+[Index](#index) -->
