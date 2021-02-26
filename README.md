@@ -94,7 +94,7 @@ const ships = [
   ]
 ```
 
-the directions property is the x and y axis that is later used in a function to place ships randomly 
+the directions property is the x and y axis that is later used in a function to place ships randomly.
 
 ```js
   function oceanGridShipsGenerator(ship) {
@@ -132,7 +132,8 @@ Then had to make another very similar function for the AI's grid.
     <img width="40%" src="assets/image4.png"> 
 </p>
 
-And afterwards then fun began having to make the player's turn function, will explain below
+And afterwards then fun began having to make the player's turn function, will explain below.
+
 ```js
   function playersTurn(classList) {
     const cellUnderFire = trackingGrid.querySelector(`div[data-id='${cellId}']`)
@@ -195,7 +196,7 @@ In the end it runs the winsConditions function to check if with that shot they s
 ```
 This function first will check if the gameover variable is true and if it is it'll stop running, then will check wether its the player's turn or the AI's and will run the appropiate function. In the case of the player it adds an event listener to all the divs so the function knows what div is being clicked and evaluates based on that.
 
-For the AI it will just run the function after 1 second 
+For the AI it will just run the function after 1 second.
 ```js
   function aiTurn(cell) {
     cell = Math.floor(Math.random() * oceanGridCells.length)
@@ -213,9 +214,9 @@ For the AI it will just run the function after 1 second
   }
 ```
 
-This function works pretty similarly to how the player's one does, difference is that instead of evaluating the div that's being clicked, it will choose one randomly (I wanted to improve this to make the AI smarter but didn't have enough time, better explained in the Thoughts section.)
+This function works pretty similarly to how the player's one does, difference is that instead of evaluating the div that's being clicked, it will choose one randomly (I wanted to improve this to make the AI smarter but didn't have enough time, better explained in the Thoughts section.).
 
-Now for the last big function we have the winConditions
+Now for the last big function we have the winConditions.
 
 ```js
   function winConditions() {
@@ -268,7 +269,7 @@ Like the name says this function will check all the win conditions in order to s
     <img width="40%" src="assets/image5.png"> 
 </p>
 
-Now the gameEnds function and the last one of this project
+Now the gameEnds function and the last one of this project.
 
 ```js
   function gameEnds() {
@@ -313,7 +314,7 @@ After three weeks of coding I went into my first project with quite a few doubts
 
 Since this was my first time developing a game, I had some trouble deciding where I should start and felt a little overwhelmed at first but thanks to the coaching and instructions given by the team at GA I started by picturing how I wanted my game to work and began making functions for the very basic things I needed like creating the grid for both the player and AI and placing ships inside randomly for both, then moving onto the more complex functions that would take care of the gameplay and both the player's and AI's inputs.
 
-This methodologie helped me understand how to split big problems into smaller and manageable pieces that I can begin to work on in order to achieve a certain goal. At the end, despite the fact that I couldn't finish what I set myself to do, I was satisfied with the outcome and the fact that I enjoyed developing this game while learning a lot
+This methodologie helped me understand how to split big problems into smaller and manageable pieces that I can begin to work on in order to achieve a certain goal. At the end, despite the fact that I couldn't finish what I set myself to do, I was satisfied with the outcome and the fact that I enjoyed developing this game while learning a lot.
 </br>
 </br>
 <p align="center" width="100%">
