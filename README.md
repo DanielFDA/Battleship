@@ -1,6 +1,5 @@
-# sei project 1 - Battleship
+# Battleship
 
-You can check out the game [here](https://danielfda.github.io/sei-project-1/)
 ## Index
 * [Overview](#overview)
 * [Setup](#setup)
@@ -26,7 +25,7 @@ Wanted to note that I will not be editing the code due to this being the first p
 
 First we need to download the repository into our own machine for which we have to input the following line into our terminal or command line:
 ```bash 
-git clone https://github.com/DanielFDA/sei-project-1.git
+git clone https://github.com/DanielFDA/Battleship.git
 ```
 
 then, to launch the game go the downloaded folder and double-click `index.html`
