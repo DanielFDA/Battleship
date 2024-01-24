@@ -25,7 +25,7 @@ Wanted to note that I will not be editing the code due to this being the first p
 
 First we need to download the repository into our own machine for which we have to input the following line into our terminal or command line:
 ```bash 
-git clone https://github.com/DanielFDA/Battleship.git
+git clone https://github.com/DanielFDA/battleship.git
 ```
 
 then, to launch the game go the downloaded folder and double-click `index.html`
